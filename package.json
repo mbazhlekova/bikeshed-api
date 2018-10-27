@@ -1,0 +1,34 @@
+{
+  "name": "bikeshed-api",
+  "version": "1.0.0",
+  "description": "API for The Bikeshed, a poll making app",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch & nodemon dist",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbazhlekova/bikeshed-api.git"
+  },
+  "keywords": [
+    "node.js",
+    "express.js",
+    "postgresql"
+  ],
+  "author": "Maria Bazhlekova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mbazhlekova/bikeshed-api/issues"
+  },
+  "homepage": "https://github.com/mbazhlekova/bikeshed-api#readme",
+  "dependencies": {
+    "@types/node": "^10.12.0",
+    "express": "^4.16.4",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.5",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.1.3"
+  }
+}
