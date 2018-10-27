@@ -4,4 +4,4 @@ API for my poll making app, The Bikeshed
 
 ## Tech
 
-Spring Boot + JPA + Hibernate + PostgreSQL
+Node.js + Express.js + PostgreSQL
