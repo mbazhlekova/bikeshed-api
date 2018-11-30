@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import app from '../src/App';
+import app from '../App';
 
 describe('App', () => {
   it('should return a 200 status on /', async () => {
