@@ -1,34 +1,24 @@
 import * as express from 'express';
-import * as pg from 'pg';
+import * as bodyParser from 'body-parser';
+import Routes from './routes/routes';
 
 class App {
-  public express;
-  public dbClient;
+  public app: express.Application;
 
   constructor() {
-    this.express = express();
-    this.dbClient = new pg.Client(process.env.DB_URL);
+    this.app = express();
+    this.app.use(bodyParser.json());
     this.mountRoutes();
   }
 
   private mountRoutes = async () => {
-    const router = express.Router();
-    router.get('/', async (req, res) => {
-      await this.dbClient.connect(async (err, client, done) => {
-        const results = [];
-        if (err) {
-          done();
-          console.log(err);
-          return res.status(500).json({ success: false, data: err });
-        }
-        const query = await client.query('SELECT * FROM numbers');
-        query.rows.forEach(row => results.push(row));
-        await client.end();
-        return res.json(results);
-      });
-    });
-    this.express.use('/', router);
+    const router: express.Router = express.Router();
+    const routes: Routes = new Routes();
+
+    router.get('/polls', routes.getPolls.bind(routes.getPolls));
+
+    this.app.use('/api', router);
   };
 }
 
-export default new App().express;
+export default new App().app;

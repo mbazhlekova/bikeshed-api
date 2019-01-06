@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 dbConnection
   .then(() =>
     app.listen(port, () => {
-      return console.log(`server is listening on ${port}`);
+      return console.log(`magic happening on port ${port}`);
     })
   )
   .catch(console.error);
