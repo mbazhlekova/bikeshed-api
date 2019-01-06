@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import Poll from './poll.entity';
+import Poll from './Poll';
 
 @Entity()
 export default class Choice {
@@ -8,6 +8,9 @@ export default class Choice {
 
   @Column()
   public text: string;
+
+  @Column()
+  public votes: number = 0;
 
   @ManyToOne(type => Poll, poll => poll.choices)
   public poll: Poll;
