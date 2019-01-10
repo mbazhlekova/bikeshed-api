@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { getRepository, Repository } from 'typeorm';
+import {getRepository, Repository} from 'typeorm';
 import Poll from '../entity/Poll';
 
 class Routes {
@@ -9,17 +9,28 @@ class Routes {
     this.express = express();
   }
 
-  public async getPolls(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) {
-    const pollRepo: Repository<Poll> = getRepository(Poll);
+  public async getPolls(req : express.Request, res : express.Response, next : express.NextFunction) {
+    const pollRepo : Repository < Poll > = getRepository(Poll);
     try {
       const polls = await pollRepo.find();
       res.send(polls);
     } catch (error) {
-      res.status(500).json({ success: false, data: error });
+      res
+        .status(500)
+        .json({success: false, data: error});
+      next(error);
+    }
+  }
+  public async savePoll(req : express.Request, res : express.Response, next : express.NextFunction) {
+    const pollRepo : Repository < Poll > = getRepository(Poll);
+    try {
+      const poll = req.body.poll;
+      await pollRepo.save(poll);
+      res.send('Success! Poll saved');
+    } catch (error) {
+      res
+        .status(500)
+        .json({success: false, data: error});
       next(error);
     }
   }
