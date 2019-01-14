@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import Routes from './routes/routes';
+import PollRoutes from './routes/poll';
 
 class App {
   public app: express.Application;
@@ -12,12 +12,21 @@ class App {
   }
 
   private mountRoutes = async () => {
-    const router: express.Router = express.Router();
-    const routes: Routes = new Routes();
+    this.app.use(
+      (
+        err: Error & { status: number },
+        request: express.Request,
+        response: express.Response,
+        next: express.NextFunction
+      ): void => {
+        response.status(err.status || 500);
+        response.json({
+          error: 'Server error',
+        });
+      }
+    );
 
-    router.get('/polls', routes.getPolls.bind(routes.getPolls));
-
-    this.app.use('/api', router);
+    this.app.use('/api', PollRoutes.routes());
   };
 }
 
