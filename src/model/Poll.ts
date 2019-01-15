@@ -21,7 +21,10 @@ const schema = new Schema({
   choices: [
     {
       text: String,
-      votes: Number,
+      votes: {
+        type: Number,
+        default: 0,
+      },
     },
   ],
 });
