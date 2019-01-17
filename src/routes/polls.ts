@@ -37,7 +37,8 @@ class PollRoutes {
         try {
           const { id } = req.params;
           const { poll } = req.body;
-          // TODO - Finish route
+          const newPoll = await Poll.findByIdAndUpdate(id, poll, { new: true });
+          res.send(newPoll);
         } catch (error) {
           res.status(500).json({ success: false, data: error });
           next(error);
