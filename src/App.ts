@@ -1,12 +1,15 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as morgan from 'morgan';
 import PollRoutes from './routes/polls';
+import UserRoutes from './routes/user';
 
 class App {
   public app: express.Application;
 
   constructor() {
     this.app = express();
+    this.app.use(morgan('dev'));
     this.app.use(bodyParser.json());
     this.mountRoutes();
   }
@@ -26,7 +29,7 @@ class App {
       }
     );
 
-    this.app.use('/api', PollRoutes.routes());
+    this.app.use('/api', PollRoutes.routes(), UserRoutes.routes());
   };
 }
 
