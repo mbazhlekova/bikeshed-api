@@ -1,10 +1,11 @@
 import { mongoose } from '../config/db';
-import { Document, Model, Schema } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 
 export interface IPoll extends Document {
   name: string;
-  created: Date;
+  createdAt: Date;
   choices: [IChoice];
+  createdBy: string;
 }
 
 interface IChoice {
@@ -14,7 +15,7 @@ interface IChoice {
 
 const schema = new Schema({
   name: String,
-  created: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
@@ -27,6 +28,7 @@ const schema = new Schema({
       },
     },
   ],
+  createdBy: String,
 });
 
 export const Poll = mongoose.model<IPoll>('Poll', schema);
