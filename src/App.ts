@@ -14,7 +14,7 @@ class App {
     this.mountRoutes();
   }
 
-  private mountRoutes = async () => {
+  private mountRoutes = () => {
     this.app.use(
       (
         err: Error & { status: number },

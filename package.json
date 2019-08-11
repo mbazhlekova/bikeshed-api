@@ -15,7 +15,7 @@
   "keywords": [
     "node.js",
     "express.js",
-    "postgresql"
+    "mongodb"
   ],
   "author": "Maria Bazhlekova",
   "license": "ISC",
