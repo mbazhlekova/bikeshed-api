@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/mbazhlekova/bikeshed-api#readme",
   "dependencies": {
+    "@hapi/joi": "^15.1.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.0",
+    "@types/hapi": "^18.0.2",
     "@types/jest": "^24.0.17",
     "@types/jsonwebtoken": "^8.3.3",
     "@types/mongoose": "^5.5.12",

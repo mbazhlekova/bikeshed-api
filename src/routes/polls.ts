@@ -1,5 +1,6 @@
 import { Request, Response, Router, NextFunction } from 'express';
 import { Poll } from '../model/Poll';
+import auth from '../middleware/auth';
 
 class PollRoutes {
   public static routes(): Router {
@@ -23,7 +24,7 @@ class PollRoutes {
           next(error);
         }
       })
-      .post('/polls', async (req: Request, res: Response, next: NextFunction) => {
+      .post('/poll', auth, async (req: Request, res: Response, next: NextFunction) => {
         try {
           const { poll } = req.body;
           await Poll.create(poll);
@@ -33,7 +34,7 @@ class PollRoutes {
           next(error);
         }
       })
-      .put('/polls/:id', async (req: Request, res: Response, next: NextFunction) => {
+      .put('/polls/:id', auth, async (req: Request, res: Response, next: NextFunction) => {
         try {
           const { id } = req.params;
           const { poll } = req.body;
@@ -44,10 +45,10 @@ class PollRoutes {
           next(error);
         }
       })
-      .delete('/polls/:id', async (req: Request, res: Response, next: NextFunction) => {
+      .delete('/polls/:id', auth, async (req: Request, res: Response, next: NextFunction) => {
         try {
           const { id } = req.params;
-          const poll = await Poll.findByIdAndDelete(id);
+          await Poll.findByIdAndDelete(id);
           res.send('Success! Poll was deleted');
         } catch (error) {
           res.status(500).json({ success: false, data: error });
