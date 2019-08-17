@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { Response, NextFunction } from 'express';
 import { RequestWithAuth } from '../types/Request';
-import { IUser } from '../model/User';
+import { User } from '../model/User';
 
 export default (req: RequestWithAuth, res: Response, next: NextFunction) => {
   const token = (req.headers['x-access-token'] as string) || req.headers[`authorization`];
@@ -10,7 +10,7 @@ export default (req: RequestWithAuth, res: Response, next: NextFunction) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
-    req.user = decoded as IUser;
+    req.user = decoded as User;
     next();
   } catch (ex) {
     res.status(400).send('Invalid token.');

@@ -1,5 +1,5 @@
 import { Request, Response, Router, NextFunction } from 'express';
-import { Poll } from '../model/Poll';
+import { Poll, validatePoll } from '../model/Poll';
 import auth from '../middleware/auth';
 
 class PollRoutes {
@@ -25,8 +25,12 @@ class PollRoutes {
         }
       })
       .post('/poll', auth, async (req: Request, res: Response, next: NextFunction) => {
+        const { poll } = req.body;
+        const { error } = validatePoll(poll);
+        if (error) {
+          return res.status(400).send(error.details[0].message);
+        }
         try {
-          const { poll } = req.body;
           await Poll.create(poll);
           res.send('Success! Poll saved');
         } catch (error) {

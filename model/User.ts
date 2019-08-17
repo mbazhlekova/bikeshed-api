@@ -4,13 +4,13 @@ import * as jwt from 'jsonwebtoken';
 import { ValidationResult } from 'joi';
 import * as Joi from '@hapi/joi';
 
-export interface IUser extends Document {
+export interface User extends Document {
   name: string;
   email: string;
   password: string;
 }
 
-interface IUserModel extends IUser {
+interface UserModel extends User {
   generateAuthToken(): string;
 }
 
@@ -43,9 +43,9 @@ schema.methods.generateAuthToken = function(): string {
   return token;
 };
 
-export const User: Model<IUserModel> = mongoose.model<IUserModel>('User', schema);
+export const User: Model<UserModel> = mongoose.model<UserModel>('User', schema);
 
-export const validateUser = (user: IUser): ValidationResult<IUser> => {
+export const validateUser = (user: User): ValidationResult<User> => {
   const validationSchema = {
     name: Joi.string()
       .min(3)

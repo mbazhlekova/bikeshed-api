@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch & nodemon dist",
+    "client": "cd ./client && yarn start",
+    "server": "tsc --watch & nodemon dist",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
     "test": "jest"
   },
   "repository": {
